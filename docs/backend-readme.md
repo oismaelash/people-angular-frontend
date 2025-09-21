@@ -56,8 +56,8 @@ Each person has the following properties:
    dotnet run
    ```
 5. Open your browser and navigate to:
-   - API: `https://localhost:7000/api/people`
-   - Swagger UI: `https://localhost:7000/swagger`
+   - API: `https://localhost:5000/api/people`
+   - Swagger UI: `https://localhost:5000/swagger`
 
 ### Running Tests
 

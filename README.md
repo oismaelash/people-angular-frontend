@@ -1,137 +1,246 @@
-# People Management System - Frontend Angular
+# People Management System - Angular Frontend
 
-Uma aplicação Angular moderna para gerenciamento de pessoas, integrada com a API REST do backend .NET Core.
+A modern Angular application for people management, integrated with the .NET Core REST API backend.
 
-## 🚀 Funcionalidades
+## 🚀 Features
 
-- **Visualização de Pessoas**: Tabela com paginação (10 registros por página)
-- **Filtros Avançados**: 
-  - Filtro por Nome (destacado)
-  - Filtro por CPF
-  - Filtro por Gênero
-  - Filtro por Estado
-- **Atualização de Dados**: Botão de refresh para recarregar dados da API
-- **Interface Moderna**: Design responsivo com Angular Material
-- **Paginação**: Navegação entre páginas com controle de tamanho
+- **People Visualization**: Table with pagination (10 records per page)
+- **Advanced Filters**: 
+  - Filter by Name (highlighted)
+  - Filter by CPF
+  - Filter by Gender
+  - Filter by State
+- **Data Update**: Refresh button to reload data from API
+- **Modern Interface**: Responsive design with Angular Material
+- **Pagination**: Navigation between pages with size control
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Technologies Used
 
-- **Angular 20** - Framework principal
-- **Angular Material** - Componentes de UI
-- **RxJS** - Programação reativa
-- **TypeScript** - Linguagem de programação
-- **SCSS** - Estilização
+- **Angular 20** - Main framework
+- **Angular Material** - UI components
+- **RxJS** - Reactive programming
+- **TypeScript** - Programming language
+- **SCSS** - Styling
 
-## 📋 Pré-requisitos
+## 📋 Prerequisites
 
-- Node.js (versão 18 ou superior)
-- npm ou yarn
-- Backend .NET Core rodando em `https://localhost:7000`
+- Node.js (version 18 or higher)
+- npm or yarn
+- .NET Core backend running on `https://localhost:5000`
 
-## 🚀 Como Executar
+## 🚀 How to Run
 
-### 1. Instalar Dependências
+### Option 1: Local Development
+
+#### 1. Install Dependencies
 ```bash
 npm install
 ```
 
-### 2. Executar o Backend
-Certifique-se de que o backend .NET Core está rodando em `https://localhost:7000`
+#### 2. Run the Backend
+Make sure the .NET Core backend is running on `https://localhost:5000`
 
-### 3. Executar a Aplicação
+#### 3. Run the Application
 ```bash
 npm start
-# ou
+# or
 ng serve
 ```
 
-A aplicação estará disponível em `http://localhost:4200`
+The application will be available at `http://localhost:4200`
 
-### 4. Build para Produção
+#### 4. Production Build
 ```bash
 npm run build
 ```
 
-## 📁 Estrutura do Projeto
+### Option 2: Docker 🐳
+
+#### Docker Prerequisites
+- Docker installed on your system
+- .NET Core backend running on `https://localhost:5000`
+
+#### 1. Build Docker Image
+```bash
+docker build -t people-angular-app .
+```
+
+#### 2. Run Container
+```bash
+docker run -p 4200:4200 people-angular-app
+```
+
+The application will be available at `http://localhost:4200`
+
+#### Useful Docker Commands
+```bash
+# Build with custom tag
+docker build -t people-angular-app:latest .
+
+# Run in detached mode (background)
+docker run -d -p 4200:4200 --name people-app people-angular-app
+
+# Stop container
+docker stop people-app
+
+# Remove container
+docker rm people-app
+
+# View container logs
+docker logs people-app
+
+# Access container shell
+docker exec -it people-app sh
+```
+
+#### Docker Compose (Optional)
+Create a `docker-compose.yml` file to facilitate management:
+```yaml
+version: '3.8'
+services:
+  people-frontend:
+    build: .
+    ports:
+      - "4200:4200"
+    container_name: people-angular-app
+    restart: unless-stopped
+```
+
+Run with:
+```bash
+docker-compose up -d
+```
+
+## 📁 Project Structure
 
 ```
 src/
 ├── app/
 │   ├── components/
-│   │   └── people-table/          # Componente principal da tabela
+│   │   └── people-table/          # Main table component
 │   ├── models/
-│   │   └── person.model.ts        # Interfaces TypeScript
+│   │   └── person.model.ts        # TypeScript interfaces
 │   ├── services/
-│   │   └── people.service.ts      # Serviço para comunicação com API
-│   ├── app.config.ts              # Configuração da aplicação
-│   ├── app.routes.ts              # Configuração de rotas
-│   └── app.ts                     # Componente raiz
+│   │   └── people.service.ts      # Service for API communication
+│   ├── app.config.ts              # Application configuration
+│   ├── app.routes.ts              # Route configuration
+│   └── app.ts                     # Root component
+
+# Docker Files
+├── Dockerfile                     # Multi-stage configuration for build and production
+├── nginx.conf                     # Nginx configuration to serve the application
+├── .dockerignore                  # Files ignored in Docker build
+└── docker-compose.yml             # (Optional) Orchestration with Docker Compose
 ```
 
-## 🔧 Configuração da API
+### Docker Files
 
-A URL da API está configurada no serviço `PeopleService`:
+- **Dockerfile**: Multi-stage configuration that:
+  - Stage 1: Build Angular application with Node.js
+  - Stage 2: Serve application with Nginx Alpine
+- **nginx.conf**: Optimized Nginx configuration with:
+  - Angular SPA routing support
+  - Gzip compression
+  - Static asset caching
+  - Security headers
+- **.dockerignore**: Excludes unnecessary files from build context
+
+## 🔧 API Configuration
+
+The API URL is configured in the `PeopleService`:
 ```typescript
-private apiUrl = 'https://localhost:7000/api/people';
+private apiUrl = 'https://localhost:5000/api/people';
 ```
 
-Para alterar a URL da API, edite o arquivo `src/app/services/people.service.ts`.
+To change the API URL, edit the file `src/app/services/people.service.ts`.
 
-## 📊 Funcionalidades da Tabela
+## 📊 Table Features
 
-### Paginação
-- **Tamanho padrão**: 10 registros por página
-- **Opções**: 5, 10, 25, 50 registros por página
-- **Navegação**: Botões para primeira/última página
+### Pagination
+- **Default size**: 10 records per page
+- **Options**: 5, 10, 25, 50 records per page
+- **Navigation**: First/last page buttons
 
-### Filtros
-- **Nome**: Campo destacado com destaque visual
-- **CPF**: Filtro por CPF
-- **Gênero**: Filtro por gênero (Masculino/Feminino)
-- **Estado**: Filtro por estado
+### Filters
+- **Name**: Highlighted field with visual emphasis
+- **CPF**: Filter by CPF
+- **Gender**: Filter by gender (Male/Female)
+- **State**: Filter by state
 
-### Ações
-- **Aplicar Filtros**: Aplica os filtros selecionados
-- **Limpar Filtros**: Remove todos os filtros
-- **Atualizar Dados**: Recarrega os dados da API
+### Actions
+- **Apply Filters**: Applies selected filters
+- **Clear Filters**: Removes all filters
+- **Update Data**: Reloads data from API
 
 ## 🎨 Design
 
-A aplicação utiliza Angular Material com:
-- **Tema**: Material Design
-- **Responsividade**: Adaptável a diferentes tamanhos de tela
-- **Acessibilidade**: Componentes acessíveis
-- **UX**: Interface intuitiva e moderna
+The application uses Angular Material with:
+- **Theme**: Material Design
+- **Responsiveness**: Adaptable to different screen sizes
+- **Accessibility**: Accessible components
+- **UX**: Intuitive and modern interface
 
-## 🔍 Endpoints da API
+## 🔍 API Endpoints
 
-A aplicação consome os seguintes endpoints:
+The application consumes the following endpoints:
 
-- `GET /api/people` - Lista paginada de pessoas
-- `GET /api/people/{cpf}` - Busca pessoa por CPF
-- `POST /api/people` - Cria nova pessoa
-- `PUT /api/people/{cpf}` - Atualiza pessoa
-- `DELETE /api/people/{cpf}` - Remove pessoa
+- `GET /api/people` - Paginated list of people
+- `GET /api/people/{cpf}` - Search person by CPF
+- `POST /api/people` - Create new person
+- `PUT /api/people/{cpf}` - Update person
+- `DELETE /api/people/{cpf}` - Remove person
 
-## 🐛 Solução de Problemas
+## 🐛 Troubleshooting
 
-### Erro de CORS
-Se encontrar erros de CORS, certifique-se de que o backend está configurado para aceitar requisições do frontend.
+### CORS Error
+If you encounter CORS errors, make sure the backend is configured to accept requests from the frontend.
 
-### Erro de Conexão
-Verifique se o backend está rodando em `https://localhost:7000` e se a URL está correta no serviço.
+### Connection Error
+Check if the backend is running on `https://localhost:5000` and if the URL is correct in the service.
 
-### Problemas de Build
-Execute `npm install` para reinstalar as dependências.
+### Build Issues
+Run `npm install` to reinstall dependencies.
 
-## 📝 Licença
+### Docker Issues
 
-Este projeto é para fins educacionais.
+#### Docker Build Error
+```bash
+# Clear Docker cache
+docker system prune -a
 
-## 🤝 Contribuição
+# Rebuild image
+docker build --no-cache -t people-angular-app .
+```
 
-1. Faça um fork do projeto
-2. Crie uma branch para sua feature
-3. Commit suas mudanças
-4. Push para a branch
-5. Abra um Pull Request
+#### Container Won't Start
+```bash
+# Check container logs
+docker logs people-app
+
+# Check if port 4200 is available
+netstat -tulpn | grep :4200
+```
+
+#### Performance Issues
+- Final image is optimized with Alpine Linux
+- Assets are served with cache and compression
+- For development, use `npm start` instead of Docker
+
+#### Permission Error (Linux)
+```bash
+# Add user to docker group
+sudo usermod -aG docker $USER
+# Logout and login again
+```
+
+## 📝 License
+
+This project is for educational purposes.
+
+## 🤝 Contributing
+
+1. Fork the project
+2. Create a branch for your feature
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request

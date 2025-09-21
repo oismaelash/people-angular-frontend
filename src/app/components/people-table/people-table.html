@@ -1,34 +1,34 @@
 <div class="people-table-container">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Lista de Pessoas</mat-card-title>
-      <mat-card-subtitle>Gerencie e visualize as informações das pessoas</mat-card-subtitle>
+      <mat-card-title>People List</mat-card-title>
+      <mat-card-subtitle>Manage and view people information</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
-      <!-- Filtros -->
+      <!-- Filters -->
       <div class="filters-section">
         <div class="filters-row">
-          <mat-form-field appearance="outline" class="filter-field name-filter">
-            <mat-label>Filtrar por Nome</mat-label>
-            <input matInput [(ngModel)]="nameFilter" placeholder="Digite o nome para filtrar">
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Filter by Name</mat-label>
+            <input matInput [(ngModel)]="nameFilter" placeholder="Type name to filter">
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="filter-field">
-            <mat-label>Filtrar por CPF</mat-label>
-            <input matInput [(ngModel)]="cpfFilter" placeholder="Digite o CPF">
+            <mat-label>Filter by CPF</mat-label>
+            <input matInput [(ngModel)]="cpfFilter" placeholder="Type CPF">
             <mat-icon matSuffix>badge</mat-icon>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="filter-field">
-            <mat-label>Filtrar por Gênero</mat-label>
-            <input matInput [(ngModel)]="genreFilter" placeholder="Ex: Masculino, Feminino">
+            <mat-label>Filter by Gender</mat-label>
+            <input matInput [(ngModel)]="genreFilter" placeholder="Ex: Male, Female">
             <mat-icon matSuffix>person</mat-icon>
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="filter-field">
-            <mat-label>Filtrar por Estado</mat-label>
+            <mat-label>Filter by State</mat-label>
             <input matInput [(ngModel)]="stateFilter" placeholder="Ex: São Paulo">
             <mat-icon matSuffix>location_on</mat-icon>
           </mat-form-field>
@@ -37,24 +37,24 @@
         <div class="filter-actions">
           <button mat-raised-button color="primary" (click)="applyFilters()">
             <mat-icon>filter_list</mat-icon>
-            Aplicar Filtros
+            Apply Filters
           </button>
           <button mat-button (click)="clearFilters()">
             <mat-icon>clear</mat-icon>
-            Limpar Filtros
+            Clear Filters
           </button>
           <button mat-raised-button color="accent" (click)="refreshData()">
             <mat-icon>refresh</mat-icon>
-            Atualizar Dados
+            Refresh Data
           </button>
         </div>
       </div>
 
-      <!-- Tabela -->
+      <!-- Table -->
       <div class="table-container">
         <div *ngIf="isLoading" class="loading-container">
           <mat-spinner></mat-spinner>
-          <p>Carregando dados...</p>
+          <p>Loading data...</p>
         </div>
 
         <table mat-table [dataSource]="filteredDataSource" class="people-table" *ngIf="!isLoading">
@@ -66,31 +66,31 @@
 
           <!-- Name Column -->
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Nome</th>
+            <th mat-header-cell *matHeaderCellDef>Name</th>
             <td mat-cell *matCellDef="let person">{{ person.name }}</td>
           </ng-container>
 
           <!-- Genre Column -->
           <ng-container matColumnDef="genre">
-            <th mat-header-cell *matHeaderCellDef>Gênero</th>
+            <th mat-header-cell *matHeaderCellDef>Gender</th>
             <td mat-cell *matCellDef="let person">{{ person.genre }}</td>
           </ng-container>
 
           <!-- Age Column -->
           <ng-container matColumnDef="age">
-            <th mat-header-cell *matHeaderCellDef>Idade</th>
+            <th mat-header-cell *matHeaderCellDef>Age</th>
             <td mat-cell *matCellDef="let person">{{ person.age }}</td>
           </ng-container>
 
           <!-- Neighborhood Column -->
           <ng-container matColumnDef="neighborhood">
-            <th mat-header-cell *matHeaderCellDef>Bairro</th>
+            <th mat-header-cell *matHeaderCellDef>Neighborhood</th>
             <td mat-cell *matCellDef="let person">{{ person.neighborhood }}</td>
           </ng-container>
 
           <!-- State Column -->
           <ng-container matColumnDef="state">
-            <th mat-header-cell *matHeaderCellDef>Estado</th>
+            <th mat-header-cell *matHeaderCellDef>State</th>
             <td mat-cell *matCellDef="let person">{{ person.state }}</td>
           </ng-container>
 
@@ -101,11 +101,11 @@
         <!-- No data message -->
         <div *ngIf="!isLoading && filteredDataSource.length === 0" class="no-data">
           <mat-icon>info</mat-icon>
-          <p>Nenhuma pessoa encontrada com os filtros aplicados.</p>
+          <p>No people found with the applied filters.</p>
         </div>
       </div>
 
-      <!-- Paginação -->
+      <!-- Pagination -->
       <mat-paginator
         *ngIf="!isLoading && filteredDataSource.length > 0"
         [length]="totalCount"
@@ -114,7 +114,7 @@
         [pageSizeOptions]="pageSizeOptions"
         [showFirstLastButtons]="true"
         (page)="onPageChange($event)"
-        aria-label="Selecionar página">
+        aria-label="Select page">
       </mat-paginator>
     </mat-card-content>
   </mat-card>

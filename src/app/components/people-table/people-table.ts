@@ -71,7 +71,7 @@ export class PeopleTableComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error loading people:', error);
-          this.snackBar.open('Erro ao carregar pessoas', 'Fechar', {
+          this.snackBar.open('Error loading people', 'Close', {
             duration: 3000,
             horizontalPosition: 'right',
             verticalPosition: 'top'
@@ -104,7 +104,7 @@ export class PeopleTableComponent implements OnInit {
 
   refreshData(): void {
     this.loadPeople();
-    this.snackBar.open('Dados atualizados com sucesso!', 'Fechar', {
+    this.snackBar.open('Data updated successfully!', 'Close', {
       duration: 2000,
       horizontalPosition: 'right',
       verticalPosition: 'top'

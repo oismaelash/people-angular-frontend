@@ -27,6 +27,7 @@ A modern Angular application for people management, integrated with the .NET Cor
 - Node.js (version 18 or higher)
 - npm or yarn
 - .NET Core backend running on `https://localhost:5000`
+- Backend project: https://github.com/oismaelash/people-net-core-backend
 
 ## 🚀 How to Run
 
